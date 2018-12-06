@@ -6,9 +6,11 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
         <link rel="stylesheet" href="css/base.css">
         <link rel="stylesheet" href="css/site-header.css">
+        <link rel="stylesheet" href="css/sidebar.css">
     </head>
     <body>
         <div class="site-header">
@@ -27,5 +29,74 @@
                 </div>
             </div>
         </div>
+
+        <div id="sidebar" class="sidebar animated">
+            <div class="sidebar-header">
+                Giselle
+            </div>
+            <div class="sidebar-body">
+                <div class="nav-section">
+                    <div class="nav-item title">
+                        Account
+                    </div>
+                    <div class="nav-item link">
+                        Career
+                    </div>
+                    <div class="nav-item link active">
+                        Personal
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-item title">
+                        Manage
+                    </div>
+                    <div class="nav-item link">
+                        Password
+                    </div>
+                    <div class="nav-item link">
+                        Email
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+    <script type="text/javascript">
+        // open and close sidebar
+        document.getElementsByClassName('sidebar-link-container')[0]
+            .addEventListener('click', function () {
+                var sidebarLinkElement = this.getElementsByClassName('sidebar-link')[0];
+                var sidebarElement = document.getElementById('sidebar');
+
+                // close
+                if (sidebarLinkElement.classList.contains('open')) {
+                    sidebarLinkElement.classList.remove('open');
+                    sidebarElement.classList.remove('slideInLeft');
+                    sidebarElement.classList.add('slideOutLeft');
+                } else {
+                    sidebarElement.classList.remove('slideOutLeft');
+                    sidebarElement.classList.add('slideInLeft');
+                    sidebarLinkElement.classList.add('open');
+                }
+            });
+
+        // sidebar link selection
+        var navLinkElementList = document.getElementsByClassName('nav-item link');
+        [].forEach.call(navLinkElementList, function (navLink) {
+            navLink.addEventListener('click', function () {
+                navLink.classList.add('active');
+                removeActiveLink(this);
+            });
+        });
+
+        // remove selected
+        function removeActiveLink(newActiveLinkElement) {
+            [].forEach.call(navLinkElementList, function (navLink) {
+                if (navLink != newActiveLinkElement &&
+                    navLink.classList.contains('active')
+                ) {
+                    navLink.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </html>

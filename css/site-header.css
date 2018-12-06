@@ -1,6 +1,8 @@
 .site-header {
     height: 64px;
+    padding: 8px;
     border-bottom: 1px red solid;
+    z-index: 2;
 }
 
 .site-header:after {
