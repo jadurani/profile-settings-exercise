@@ -1,0 +1,80 @@
+.site-header {
+    height: 64px;
+    border-bottom: 1px red solid;
+}
+
+.site-header:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* SIDEBAR LINK */
+
+.sidebar-link-container {
+    float: left;
+    width: 64px;
+    height: 64px;
+    border: 1px blue solid;
+    display: flex;
+}
+
+.sidebar-link {
+    margin: auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+}
+
+.sidebar-link.open {
+    background-color: #dc412e;
+}
+
+.sidebar-link.open .arrow-link {
+    color: #ffffff;
+}
+
+.arrow-link {
+    margin: auto;
+    font-size: 21px;
+}
+
+.sidebar-link:not(.open) > .arrow-link:after {
+    content: 'arrow_back';
+}
+
+.sidebar-link.open > .arrow-link:after {
+    content: 'arrow_forward';
+}
+
+/* ACCOUNT CONTAINER */
+
+.account-container {
+    float: right;
+    display: flex;
+    height: 100%;
+    border: 1px green solid;
+    cursor: pointer;
+}
+
+.account-name {
+    margin: auto;
+    padding-right: 24px;
+    font-size: 12.5px;
+}
+
+.account-avatar {
+    width: 48px;
+    height: 48px;
+    margin: auto;
+    border: 1px blueviolet solid;
+    border-radius: 100%;
+}
+
+.account-avatar > img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 100%;
+}
