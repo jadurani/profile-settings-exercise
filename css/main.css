@@ -1,0 +1,105 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header {
+    border-bottom: 1.5px rgba(0, 0, 0, .05) solid;
+    height: 200px;
+}
+
+.header-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, .8);
+
+    margin: 36px 0;
+    text-align: center;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    color: rgba(0, 0, 0, .7);
+
+    padding: 8px 0;
+    text-align: center;
+
+    animation-delay: .1s;
+}
+
+.page-body {
+    margin: 56px 0;
+    display: flex;
+}
+
+.form-container {
+    margin: auto;
+    min-width: 400px;
+}
+
+.form-title {
+    font-size: 13.2px;
+    font-weight: bold;
+}
+
+.form-element {
+    margin-top: 36px;
+    width: 100%;
+}
+
+.textbox-label {
+    font-size: 12px;
+}
+
+.form-textbox {
+    outline: 1px solid transparent;
+    display: inline-block;
+    width: auto;
+
+    /* font-size: 44px; */
+    z-index: 1;
+}
+
+.textbox-container {
+    position: relative;
+    cursor: pointer;
+
+    padding: 16px 0;
+
+    will-change: border-bottom-color;
+    border-bottom: 2px #e7e7e7 solid;
+    transition: border-bottom-color .2s ease-in-out;
+}
+
+.pseudo-label {
+    top: 16px;
+    position: absolute;
+    animation-duration: .3s;
+}
+
+.textbox-underline {
+    bottom: 0;
+    position: absolute;
+    width: 0;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+
+    transition:
+        width .2s ease-in-out,
+        border-color .2s ease-in-out;
+}
+
+.textbox-color-change {
+    will-change: color;
+    transition: color .2s ease-in-out;
+}
+
+.inactive {
+    border-bottom-color: #e7e7e7;
+    color: #bebebe;
+}
+
+.active {
+    border-bottom-color: #000000;
+    color: #000000;
+}

@@ -11,8 +11,10 @@
         <link rel="stylesheet" href="css/base.css">
         <link rel="stylesheet" href="css/site-header.css">
         <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
+        <!-- HEADER -->
         <div class="site-header">
             <div class="sidebar-link-container">
                 <!-- add remove open class here to trigger change in button -->
@@ -30,7 +32,8 @@
             </div>
         </div>
 
-        <div id="sidebar" class="sidebar animated">
+        <!-- SIDENAV -->
+        <!-- <div id="sidebar" class="sidebar animated">
             <div class="sidebar-header">
                 Giselle
             </div>
@@ -59,7 +62,76 @@
                 </div>
             </div>
         </div>
+
+        <!-- MAIN -->
+        <main class="main-container">
+            <div class="page-header">
+                <div class="header-title animated fadeInUp">
+                    Your account
+                </div>
+                <div class="header-subtitle animated fadeInUp">
+                    Tell us a little more about yourself
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="form-container">
+                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                        Personal information
+                    </div>
+                    <div class="form-element animated fadeIn slow delay-4ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            First name
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">First name</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-6ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            Last name
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">Last name</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-element animated fadeIn slow delay-8ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            Phone
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">Phone</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-10ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            Country
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">Country</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
     </body>
+
     <script type="text/javascript">
         // open and close sidebar
         document.getElementsByClassName('sidebar-link-container')[0]
@@ -98,5 +170,69 @@
                 }
             });
         }
+
+        var activeElement = null;
+        document.addEventListener('mousedown', function(event) {
+            activeElement = event.target;
+        });
+
+        var textboxContainerList = document.getElementsByClassName('textbox-container');
+        [].forEach.call(textboxContainerList, function (textboxContainer) {
+            var labelElement = textboxContainer.closest('.form-element').firstElementChild;
+            var formTextbox = textboxContainer.getElementsByClassName('form-textbox')[0];
+            var pseudoLabelElement = textboxContainer.getElementsByClassName('pseudo-label')[0];
+            var textboxUnderline = textboxContainer.getElementsByClassName('textbox-underline')[0];
+
+            textboxContainer.addEventListener('click', function () {
+                formTextbox.focus();
+            });
+
+            formTextbox.addEventListener('focus', function () {
+                if (!this.innerText.length) {
+                    labelElement.classList.remove('fadeOutDown');
+                    labelElement.classList.add('fadeInUp');
+
+                    pseudoLabelElement.classList.remove('fadeIn');
+                    pseudoLabelElement.classList.add('fadeOut');
+                } else {
+                    textboxUnderline.classList.remove('inactive');
+                    textboxUnderline.classList.add('active');
+
+                    labelElement.classList.remove('inactive');
+                    labelElement.classList.add('active')
+                }
+            });
+
+            formTextbox.addEventListener('blur', function (event) {
+                if (activeElement == textboxContainer) {
+                    return;
+                }
+
+                if (!this.innerText.length) {
+                    labelElement.classList.remove('fadeInUp');
+                    labelElement.classList.add('fadeOutDown');
+
+                    pseudoLabelElement.classList.remove('fadeOut');
+                    pseudoLabelElement.classList.add('fadeIn');
+
+                } else {
+                    textboxUnderline.classList.remove('active');
+                    textboxUnderline.classList.add('inactive');
+
+                    labelElement.classList.remove('active');
+                    labelElement.classList.add('inactive');
+                }
+            });
+
+            formTextbox.addEventListener('input', function () {
+                textboxUnderline.style.width = this.clientWidth + "px";
+
+                if (this.clientWidth) {
+                    textboxContainer.style.borderBottomColor = 'transparent';
+                } else {
+                    textboxContainer.style.borderBottomColor = '#e7e7e7';
+                }
+            });
+        });
     </script>
 </html>

@@ -16,3 +16,31 @@ html, body {
     left: 0;
     margin: 0;
 }
+
+.animated.delay-2ds {
+    animation-delay: .2s;
+}
+
+.animated.delay-4ds {
+    animation-delay: .4s;
+}
+
+.animated.delay-6ds {
+    animation-delay: .4s;
+}
+
+.animated.delay-8ds {
+    animation-delay: .8s;
+}
+
+.animated.delay-10ds {
+    animation-delay: 1s;
+}
+
+.animated.delay-12ds {
+    animation-delay: 1.2s;
+}
+
+.animated.delay-16ds {
+    animation-delay: 1.6s;
+}
