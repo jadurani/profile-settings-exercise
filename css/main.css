@@ -29,12 +29,17 @@
 
 .page-body {
     margin: 56px 0;
+    display: none;
+}
+
+.page-body.active {
     display: flex;
 }
 
 .form-container {
     margin: auto;
-    min-width: 400px;
+    width: 36%;
+    max-width: 400px;
 }
 
 .form-title {
@@ -55,9 +60,11 @@
     outline: 1px solid transparent;
     display: inline-block;
     width: auto;
-
-    /* font-size: 44px; */
     z-index: 1;
+}
+
+.form-textbox.password {
+    -webkit-text-security: disc;
 }
 
 .textbox-container {

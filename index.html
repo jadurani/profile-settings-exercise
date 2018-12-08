@@ -43,10 +43,10 @@
                         <div class="nav-item title">
                             Account
                         </div>
-                        <div class="nav-item link">
+                        <div class="nav-item link" data-link-title="careerTab">
                             Career
                         </div>
-                        <div class="nav-item link active">
+                        <div class="nav-item link active" data-link-title="personalTab">
                             Personal
                         </div>
                     </div>
@@ -54,18 +54,16 @@
                         <div class="nav-item title">
                             Manage
                         </div>
-                        <div class="nav-item link">
+                        <div class="nav-item link" data-link-title="passwordTab">
                             Password
                         </div>
-                        <div class="nav-item link">
+                        <div class="nav-item link" data-link-title="emailTab">
                             Email
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
         <!-- MAIN -->
         <main class="main-container">
@@ -77,7 +75,18 @@
                     Tell us a little more about yourself
                 </div>
             </div>
-            <div class="page-body">
+
+            <!-- Career Tab -->
+            <div class="page-body" id="careerTab">
+                <div class="form-container">
+                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                        Career (not implemented)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Tab -->
+            <div class="page-body active" id="personalTab">
                 <div class="form-container">
                     <div class="form-element animated fadeIn slow delay-2ds form-title">
                         Personal information
@@ -133,12 +142,76 @@
 
                 </div>
             </div>
+
+            <!-- Password Tab -->
+            <div class="page-body" id="passwordTab">
+                <div class="form-container">
+                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                        Change password
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-4ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            New password
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox password" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">New password</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-4ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            Confirm password
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox password" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">Confirm new password</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Tab -->
+            <div class="page-body" id="emailTab">
+                <div class="form-container">
+                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                        Change email address
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-4ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            New email
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">New email</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-element animated fadeIn slow delay-4ds">
+                        <label class="textbox-label animated fadeOutDown textbox-color-change">
+                            Confirm new email
+                        </label>
+
+                        <div class="textbox-container">
+                            <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
+                            <div class="pseudo-label animated">Confirm new email</div>
+                            <div class="textbox-underline"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
-
     </body>
-
     <script type="text/javascript">
-        // open and close sidebar
+        // Animation on closing/opening sidebar
         document.getElementsByClassName('sidebar-link-container')[0]
             .addEventListener('click', function () {
                 var sidebarLinkElement = this.getElementsByClassName('sidebar-link')[0];
@@ -156,31 +229,37 @@
                 }
             });
 
-        // sidebar link selection
+        // Switching tabs via sidebar links
+        var currentTabSelected = document.getElementsByClassName('nav-item link active')[0];
         var navLinkElementList = document.getElementsByClassName('nav-item link');
         [].forEach.call(navLinkElementList, function (navLink) {
             navLink.addEventListener('click', function () {
-                navLink.classList.add('active');
-                removeActiveLink(this);
-            });
-        });
-
-        // remove selected
-        function removeActiveLink(newActiveLinkElement) {
-            [].forEach.call(navLinkElementList, function (navLink) {
-                if (navLink != newActiveLinkElement &&
-                    navLink.classList.contains('active')
+                if (
+                    currentTabSelected &&
+                    currentTabSelected != navLink &&
+                    currentTabSelected.classList.contains('active')
                 ) {
-                    navLink.classList.remove('active');
+                    currentTabSelected.classList.remove('active');
                 }
-            });
-        }
+                var currentPageActiveId = currentTabSelected.getAttribute('data-link-title');
+                var currentPageActive = document.getElementById(currentPageActiveId);
+                currentPageActive.classList.remove('active');
 
-        var activeElement = null;
-        document.addEventListener('mousedown', function(event) {
-            activeElement = event.target;
+                navLink.classList.add('active');
+                currentTabSelected = navLink;
+                var newActivePageId = navLink.getAttribute('data-link-title');
+                document.getElementById(newActivePageId).classList.add('active');
+            });
         });
 
+
+        // Track last element clicked
+        var lastElementClicked = null;
+        document.addEventListener('mousedown', function(event) {
+            lastElementClicked = event.target;
+        });
+
+        // Animation on textboxes
         var textboxContainerList = document.getElementsByClassName('textbox-container');
         [].forEach.call(textboxContainerList, function (textboxContainer) {
             var labelElement = textboxContainer.closest('.form-element').firstElementChild;
@@ -209,7 +288,7 @@
             });
 
             formTextbox.addEventListener('blur', function (event) {
-                if (activeElement == textboxContainer) {
+                if (lastElementClicked == textboxContainer) {
                     return;
                 }
 
@@ -229,9 +308,9 @@
                 }
             });
 
+            // Animation on textbox underline
             formTextbox.addEventListener('input', function () {
                 textboxUnderline.style.width = this.clientWidth + "px";
-
                 if (this.clientWidth) {
                     textboxContainer.style.borderBottomColor = 'transparent';
                 } else {
