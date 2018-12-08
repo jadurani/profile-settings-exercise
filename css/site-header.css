@@ -1,7 +1,7 @@
 .site-header {
     height: 64px;
     padding: 8px;
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 .site-header:after {
@@ -13,7 +13,9 @@
 /* SIDEBAR LINK */
 
 .sidebar-link-container {
-    float: left;
+    /* float: left; */
+    position: fixed;
+    z-index: 999;
     width: 64px;
     height: 64px;
     display: flex;
