@@ -13,12 +13,15 @@
 /* SIDEBAR LINK */
 
 .sidebar-link-container {
-    /* float: left; */
     position: fixed;
     z-index: 999;
     width: 64px;
     height: 64px;
     display: flex;
+}
+
+.sidebar-link-container.animated.slideInLeft {
+    animation-duration: .5s;
 }
 
 .sidebar-link {

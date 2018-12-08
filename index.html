@@ -16,8 +16,8 @@
     <body>
         <!-- HEADER -->
         <div class="site-header">
-            <div class="sidebar-link-container">
-                <!-- add remove open class here to trigger change in button -->
+            <div id="sidebar-link-container"
+                    class="sidebar-link-container animated slideInLeft">
                 <div class="sidebar-link open">
                     <i class="arrow-link material-icons"></i>
                 </div>
@@ -32,9 +32,9 @@
             </div>
         </div>
 
-        <div class="sidebar-container">
         <!-- SIDENAV -->
-            <div id="sidebar" class="sidebar animated">
+        <div class="sidebar-container opened">
+            <div id="sidebar" class="sidebar animated slideInLeft">
                 <div class="sidebar-header">
                     Giselle
                 </div>
@@ -63,6 +63,7 @@
                     </div>
                 </div>
             </div>
+            <div id="sidebar-overlay" class="sidebar-overlay"></div>
         </div>
 
         <!-- MAIN -->
@@ -79,7 +80,7 @@
             <!-- Career Tab -->
             <div class="page-body" id="careerTab">
                 <div class="form-container">
-                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                    <div class="form-element animated fadeIn slow form-title">
                         Career (not implemented)
                     </div>
                 </div>
@@ -88,7 +89,7 @@
             <!-- Personal Tab -->
             <div class="page-body active" id="personalTab">
                 <div class="form-container">
-                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                    <div class="form-element animated fadeIn slow form-title">
                         Personal information
                     </div>
                     <div class="form-element animated fadeIn slow delay-4ds">
@@ -100,6 +101,7 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">First name</div>
                             <div class="textbox-underline"></div>
+                            <input type="text" id="first_name">
                         </div>
                     </div>
 
@@ -112,6 +114,7 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">Last name</div>
                             <div class="textbox-underline"></div>
+                            <input type="text" id="last_name">
                         </div>
                     </div>
 
@@ -125,6 +128,7 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">Phone</div>
                             <div class="textbox-underline"></div>
+                            <input type="text" id="phone">
                         </div>
                     </div>
 
@@ -137,6 +141,7 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">Country</div>
                             <div class="textbox-underline"></div>
+                            <input type="text" id="country">
                         </div>
                     </div>
 
@@ -146,7 +151,7 @@
             <!-- Password Tab -->
             <div class="page-body" id="passwordTab">
                 <div class="form-container">
-                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                    <div class="form-element animated fadeIn slow form-title">
                         Change password
                     </div>
 
@@ -159,10 +164,11 @@
                             <div class="form-textbox password" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">New password</div>
                             <div class="textbox-underline"></div>
+                            <input type="password" id="new_password">
                         </div>
                     </div>
 
-                    <div class="form-element animated fadeIn slow delay-4ds">
+                    <div class="form-element animated fadeIn slow delay-8ds">
                         <label class="textbox-label animated fadeOutDown textbox-color-change">
                             Confirm password
                         </label>
@@ -171,6 +177,7 @@
                             <div class="form-textbox password" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">Confirm new password</div>
                             <div class="textbox-underline"></div>
+                            <input type="password" id="confirm_new_password">
                         </div>
                     </div>
                 </div>
@@ -179,7 +186,7 @@
             <!-- Email Tab -->
             <div class="page-body" id="emailTab">
                 <div class="form-container">
-                    <div class="form-element animated fadeIn slow delay-2ds form-title">
+                    <div class="form-element animated fadeIn slow form-title">
                         Change email address
                     </div>
 
@@ -192,10 +199,11 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">New email</div>
                             <div class="textbox-underline"></div>
+                            <input type="email" id="new_email">
                         </div>
                     </div>
 
-                    <div class="form-element animated fadeIn slow delay-4ds">
+                    <div class="form-element animated fadeIn slow delay-8ds">
                         <label class="textbox-label animated fadeOutDown textbox-color-change">
                             Confirm new email
                         </label>
@@ -204,6 +212,7 @@
                             <div class="form-textbox" role="textbox" contenteditable="true" spellcheck="false"></div>
                             <div class="pseudo-label animated">Confirm new email</div>
                             <div class="textbox-underline"></div>
+                            <input type="email" id="confirm_new_email">
                         </div>
                     </div>
                 </div>
@@ -211,27 +220,43 @@
         </main>
     </body>
     <script type="text/javascript">
-        // Animation on closing/opening sidebar
-        document.getElementsByClassName('sidebar-link-container')[0]
-            .addEventListener('click', function () {
-                var sidebarLinkElement = this.getElementsByClassName('sidebar-link')[0];
-                var sidebarElement = document.getElementById('sidebar');
+        var SM_WIDTH = 768;
+        var mainContainerElement = document
+            .getElementsByClassName('main-container')[0];
 
-                // close
-                if (sidebarLinkElement.classList.contains('open')) {
-                    sidebarLinkElement.classList.remove('open');
-                    sidebarElement.classList.remove('slideInLeft');
-                    sidebarElement.classList.add('slideOutLeft');
-                } else {
-                    sidebarElement.classList.remove('slideOutLeft');
-                    sidebarElement.classList.add('slideInLeft');
-                    sidebarLinkElement.classList.add('open');
-                }
-            });
+        // Animation on closing/opening sidebar
+        var sidebarLinkContainer = document
+            .getElementById('sidebar-link-container');
+        var sidebarLinkElement = sidebarLinkContainer
+            .getElementsByClassName('sidebar-link')[0];
+        var sidebarElement = document.getElementById('sidebar');
+        sidebarLinkContainer.addEventListener('click', function () {
+            if (sidebarLinkElement.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+
+        function closeSidebar() {
+            sidebarLinkElement.classList.remove('open');
+            sidebarElement.classList.remove('slideInLeft');
+            sidebarElement.classList.add('slideOutLeft');
+            sidebarElement.parentElement.classList.remove('opened');
+        }
+
+        function openSidebar() {
+            sidebarElement.classList.remove('slideOutLeft');
+            sidebarElement.classList.add('slideInLeft');
+            sidebarLinkElement.classList.add('open');
+            sidebarElement.parentElement.classList.add('opened');
+        }
 
         // Switching tabs via sidebar links
-        var currentTabSelected = document.getElementsByClassName('nav-item link active')[0];
-        var navLinkElementList = document.getElementsByClassName('nav-item link');
+        var currentTabSelected = document
+            .getElementsByClassName('nav-item link active')[0];
+        var navLinkElementList = document
+            .getElementsByClassName('nav-item link');
         [].forEach.call(navLinkElementList, function (navLink) {
             navLink.addEventListener('click', function () {
                 if (
@@ -241,14 +266,22 @@
                 ) {
                     currentTabSelected.classList.remove('active');
                 }
-                var currentPageActiveId = currentTabSelected.getAttribute('data-link-title');
-                var currentPageActive = document.getElementById(currentPageActiveId);
+
+                var currentPageActiveId = currentTabSelected
+                    .getAttribute('data-link-title');
+                var currentPageActive = document
+                    .getElementById(currentPageActiveId);
+
                 currentPageActive.classList.remove('active');
 
                 navLink.classList.add('active');
                 currentTabSelected = navLink;
                 var newActivePageId = navLink.getAttribute('data-link-title');
                 document.getElementById(newActivePageId).classList.add('active');
+
+                if (screen.width <= SM_WIDTH) {
+                    closeSidebar();
+                }
             });
         });
 
@@ -262,10 +295,15 @@
         // Animation on textboxes
         var textboxContainerList = document.getElementsByClassName('textbox-container');
         [].forEach.call(textboxContainerList, function (textboxContainer) {
-            var labelElement = textboxContainer.closest('.form-element').firstElementChild;
-            var formTextbox = textboxContainer.getElementsByClassName('form-textbox')[0];
-            var pseudoLabelElement = textboxContainer.getElementsByClassName('pseudo-label')[0];
-            var textboxUnderline = textboxContainer.getElementsByClassName('textbox-underline')[0];
+            var labelElement = textboxContainer
+                .closest('.form-element')
+                .firstElementChild;
+            var formTextbox = textboxContainer
+                .getElementsByClassName('form-textbox')[0];
+            var pseudoLabelElement = textboxContainer
+                .getElementsByClassName('pseudo-label')[0];
+            var textboxUnderline = textboxContainer
+                .getElementsByClassName('textbox-underline')[0];
 
             textboxContainer.addEventListener('click', function () {
                 formTextbox.focus();
@@ -310,6 +348,7 @@
 
             // Animation on textbox underline
             formTextbox.addEventListener('input', function () {
+                textboxContainer.lastElementChild.setAttribute("value", formTextbox.innerText);
                 textboxUnderline.style.width = this.clientWidth + "px";
                 if (this.clientWidth) {
                     textboxContainer.style.borderBottomColor = 'transparent';
@@ -318,5 +357,8 @@
                 }
             });
         });
+
+        document.getElementById('sidebar-overlay')
+            .addEventListener('click', closeSidebar);
     </script>
 </html>
