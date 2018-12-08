@@ -73,6 +73,7 @@
     cursor: pointer;
     overflow-x: hidden;
 
+    margin-bottom: 8px;
     padding: 16px 0;
 
     will-change: border-bottom-color;
@@ -108,6 +109,25 @@
     transition: color .2s ease-in-out;
 }
 
+.error-message {
+    color: #c12929;
+    position: absolute;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.error-message.hidden {
+    display: none;
+}
+
+.textbox-container.has-error {
+    border-bottom: 2px #c12929 solid;
+}
+
+.error-hidden {
+    display: none;
+}
+
 .inactive {
     border-bottom-color: rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.1);
@@ -116,6 +136,19 @@
 .active {
     border-bottom-color: #000000;
     color: #000000;
+}
+
+.plain-button {
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.save-button {
+    margin-top: 32px;
+    float: right;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {

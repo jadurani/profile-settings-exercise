@@ -1,7 +1,6 @@
 .site-header {
     height: 64px;
     padding: 8px;
-    /* z-index: 2; */
 }
 
 .site-header:after {

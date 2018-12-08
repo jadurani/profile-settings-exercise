@@ -79,16 +79,16 @@
 
             <!-- Career Tab -->
             <div class="page-body" id="careerTab">
-                <div class="form-container">
+                <form class="form-container">
                     <div class="form-element animated fadeIn slow form-title">
                         Career (not implemented)
                     </div>
-                </div>
+                </form>
             </div>
 
             <!-- Personal Tab -->
             <div class="page-body active" id="personalTab">
-                <div class="form-container">
+                <form class="form-container">
                     <div class="form-element animated fadeIn slow form-title">
                         Personal information
                     </div>
@@ -103,6 +103,7 @@
                             <div class="textbox-underline"></div>
                             <input type="text" id="first_name">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
                     <div class="form-element animated fadeIn slow delay-6ds">
@@ -116,6 +117,7 @@
                             <div class="textbox-underline"></div>
                             <input type="text" id="last_name">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
 
@@ -130,6 +132,7 @@
                             <div class="textbox-underline"></div>
                             <input type="text" id="phone">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
                     <div class="form-element animated fadeIn slow delay-10ds">
@@ -143,14 +146,20 @@
                             <div class="textbox-underline"></div>
                             <input type="text" id="country">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
-                </div>
+                    <div class="form-element animated fadeIn slow delay-12ds">
+                        <button type="button" class="plain-button save-button">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
 
             <!-- Password Tab -->
             <div class="page-body" id="passwordTab">
-                <div class="form-container">
+                <form class="form-container">
                     <div class="form-element animated fadeIn slow form-title">
                         Change password
                     </div>
@@ -166,6 +175,7 @@
                             <div class="textbox-underline"></div>
                             <input type="password" id="new_password">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
                     <div class="form-element animated fadeIn slow delay-8ds">
@@ -179,13 +189,20 @@
                             <div class="textbox-underline"></div>
                             <input type="password" id="confirm_new_password">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
-                </div>
+
+                    <div class="form-element animated fadeIn slow delay-12ds">
+                        <button type="button" class="plain-button save-button">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
 
             <!-- Email Tab -->
             <div class="page-body" id="emailTab">
-                <div class="form-container">
+                <form class="form-container">
                     <div class="form-element animated fadeIn slow form-title">
                         Change email address
                     </div>
@@ -201,6 +218,7 @@
                             <div class="textbox-underline"></div>
                             <input type="email" id="new_email">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
 
                     <div class="form-element animated fadeIn slow delay-8ds">
@@ -214,8 +232,15 @@
                             <div class="textbox-underline"></div>
                             <input type="email" id="confirm_new_email">
                         </div>
+                        <div class="error-message hidden">Required</div>
                     </div>
-                </div>
+
+                    <div class="form-element animated fadeIn slow delay-12ds">
+                        <button type="button" class="plain-button save-button">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
         </main>
     </body>
@@ -323,6 +348,14 @@
                     labelElement.classList.remove('inactive');
                     labelElement.classList.add('active')
                 }
+
+                if (!textboxContainer.nextElementSibling.classList.contains('hidden')) {
+                    textboxContainer.nextElementSibling.classList.add('hidden');
+                }
+
+                if (textboxContainer.classList.contains('has-error')) {
+                    textboxContainer.classList.remove('has-error');
+                }
             });
 
             formTextbox.addEventListener('blur', function (event) {
@@ -358,7 +391,24 @@
             });
         });
 
+        //
         document.getElementById('sidebar-overlay')
             .addEventListener('click', closeSidebar);
+
+        // SAVE
+        var saveButtonList = document.getElementsByClassName('save-button');
+        [].forEach.call(saveButtonList, function(saveButton) {
+            saveButton.addEventListener('click', function() {
+                var formElement = saveButton.closest('form');
+                var inputElementList = saveButton.closest('form').getElementsByTagName('input');
+                [].forEach.call(inputElementList, function(inputElement) {
+                    var textboxContainer = inputElement.parentElement;
+                    if (inputElement.value.length == 0) {
+                        textboxContainer.classList.add('has-error');
+                        textboxContainer.nextElementSibling.classList.remove('hidden');
+                    }
+                });
+            });
+        });
     </script>
 </html>
